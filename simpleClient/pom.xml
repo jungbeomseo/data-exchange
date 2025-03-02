@@ -1,16 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.jake</groupId>
-  <artifactId>data-exchange</artifactId>
+  <parent>
+    <artifactId>data-exchange</artifactId>
+    <groupId>net.jake</groupId>
+    <version>1.0</version>
+  </parent>
+
+  <groupId>net.jake.simpleClient</groupId>
+  <artifactId>simpleClient</artifactId>
   <version>1.0</version>
-  <name>data-exchange</name>
-  <packaging>pom</packaging>
+
+  <name>simpleClient</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -22,13 +31,14 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <dependencies>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.36</version>
-      <scope>provided</scope>
+      <groupId>common.grpc</groupId>
+      <artifactId>grpc</artifactId>
+      <version>1.0</version>
     </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -41,15 +51,38 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>net.jake.simpleClient.App</mainClass>
+                  <manifestEntries>
+                    <Implementation-Version>1.0</Implementation-Version>
+                    <Main-Class>net.jake.simpleClient.App</Main-Class>
+                  </manifestEntries>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
+
     </plugins>
-    <pluginManagement>
-      <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -93,10 +126,4 @@
       </plugins>
     </pluginManagement>
   </build>
-  <modules>
-    <module>grpc</module>
-    <module>simpleClient</module>
-    <module>simpleServer</module>
-    <module>grpcServer</module>
-  </modules>
 </project>

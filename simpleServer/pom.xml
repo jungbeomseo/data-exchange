@@ -7,11 +7,11 @@
     <version>1.0</version>
   </parent>
 
-  <groupId>net.jake.grpcClient</groupId>
-  <artifactId>grpcClient</artifactId>
+  <groupId>net.jake.simpleServer</groupId>
+  <artifactId>simpleServer</artifactId>
   <version>1.0</version>
 
-  <name>grpcClient</name>
+  <name>simpleServer</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -38,6 +38,25 @@
       <artifactId>grpc</artifactId>
       <version>1.0</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>3.4.3</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-graphql</artifactId>
+        <version>3.4.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -50,12 +69,27 @@
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <scope>test</scope>
+      <version>2.18.2</version>
+    </dependency>
+    <!-- <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <version>3.3.2</version>
+    </dependency> -->
   </dependencies>
 
   <build>
     <plugins>
-
       <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    <!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.3.0</version>
@@ -69,10 +103,10 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>net.jake.grpcClient.App</mainClass>
+                  <mainClass>net.jake.simpleServer.App</mainClass>
                   <manifestEntries>
                     <Implementation-Version>1.0</Implementation-Version>
-                    <Main-Class>net.jake.grpcClient.App</Main-Class>
+                    <Main-Class>net.jake.simpleServer.App</Main-Class>
                   </manifestEntries>
                 </transformer>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
@@ -80,8 +114,8 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-
+      </plugin> -->
+      
     </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

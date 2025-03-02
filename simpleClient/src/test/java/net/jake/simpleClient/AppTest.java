@@ -1,4 +1,4 @@
-package net.jake.grpcClient;
+package net.jake.simpleClient;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

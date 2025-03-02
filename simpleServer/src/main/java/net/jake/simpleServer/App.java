@@ -1,4 +1,4 @@
-package net.jake.grpcServer;
+package net.jake.simpleServer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

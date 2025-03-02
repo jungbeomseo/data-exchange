@@ -1,0 +1,25 @@
+type Query {
+    getUser(id: ID!): User
+}
+
+type Mutation {
+    addUser(user: UserInput!): ID
+    addRole(id:ID!, role: UserRole): User
+}
+
+type User {
+    id: ID!
+    name: String!
+    roles: [UserRole]
+}
+
+input UserInput {
+    name: String!
+    roles: [UserRole]
+}
+
+enum UserRole {
+    Admin
+    Manager
+    Employee
+}

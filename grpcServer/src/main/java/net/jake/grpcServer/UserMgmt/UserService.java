@@ -1,11 +1,14 @@
 package net.jake.grpcServer.UserMgmt;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+
+import com.google.protobuf.Timestamp;
 
 import common.grpc.Usermgmt.User;
 import common.grpc.Usermgmt.UserRole;
@@ -25,8 +28,16 @@ public class UserService {
     }
 
     public String addUser(@NonNull User input) {
+        Instant currentTime = Instant.now();
+        Timestamp now = Timestamp.newBuilder()
+            .setSeconds(currentTime.getEpochSecond())
+            .setNanos(currentTime.getNano())
+            .build();
         String userId = UUID.randomUUID().toString();
-        User user = User.newBuilder(input).setId(userId).build();
+        User user = User.newBuilder(input)
+            .setId(userId)
+            .setCreatedAt(now)
+            .build();
         userMap.put(userId, user);
         return userId;
     }

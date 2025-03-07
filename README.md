@@ -19,8 +19,9 @@
 > [!NOTE]
 > you need to run both grpcServer and simpleServer before running the test scenario.
 
-1. grpcServer: `./script-server grpcServer`
-2. simpleServer: `./script-server simpleServer`
-3. test scenarios: `./script-client`
+1. init: `mvn clean install`
+2. grpcServer: `./script-server grpcServer`
+3. simpleServer: `./script-server simpleServer`
+4. test scenarios: `./script-client`
 
 ![](./recording.gif)

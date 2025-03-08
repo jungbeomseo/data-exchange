@@ -23,20 +23,15 @@ public class UserService {
         User user = Optional.of(id)
             .filter(StringUtils::isNotBlank)
             .map(Id -> userMap.get(Id))
-            .orElseThrow(IllegalArgumentException::new);
+            .orElse(null);
         return user;
     }
 
     public String addUser(@NonNull User input) {
-        Instant currentTime = Instant.now();
-        Timestamp now = Timestamp.newBuilder()
-            .setSeconds(currentTime.getEpochSecond())
-            .setNanos(currentTime.getNano())
-            .build();
         String userId = UUID.randomUUID().toString();
         User user = User.newBuilder(input)
             .setId(userId)
-            .setCreatedAt(now)
+            // .setCreatedAt(getCurrentTime())
             .build();
         userMap.put(userId, user);
         return userId;
@@ -44,10 +39,20 @@ public class UserService {
 
     public User addRole(@NonNull String id, @NonNull UserRole role) {
         User user = getUser(id);
+        if (user == null)
+            return null;
         if (!user.getRolesList().contains(role)) {
             user = User.newBuilder(user).addRoles(role).build();
             userMap.put(user.getId(), user);
         }
         return user;
+    }
+
+    private Timestamp getCurrentTime() {
+        Instant currentTime = Instant.now();
+        return Timestamp.newBuilder()
+            .setSeconds(currentTime.getEpochSecond())
+            .setNanos(currentTime.getNano())
+            .build();
     }
 }

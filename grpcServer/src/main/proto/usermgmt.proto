@@ -20,7 +20,7 @@ message User {
     string id = 1;
     string name = 2;
     repeated UserRole roles = 3;
-    google.protobuf.Timestamp createdAt = 4; // new field
+    // google.protobuf.Timestamp createdAt = 4; // new field
 }
 
 message RoleAddRequest {

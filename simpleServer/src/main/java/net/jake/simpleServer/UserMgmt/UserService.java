@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
-import net.jake.simpleServer.UserMgmt.User.UserRole;
+import net.jake.simpleServer.UserMgmt.entity.User;
+import net.jake.simpleServer.UserMgmt.entity.UserRole;
 
 
 @Service
@@ -19,11 +20,10 @@ public class UserService {
     Map<String, User> userMap = new HashMap<String, User>();
 
     public User getUser(@NonNull String id) {
-        User user = Optional.of(id)
+        return Optional.of(id)
             .filter(StringUtils::isNotBlank)
             .map(Id -> userMap.get(Id))
-            .orElseThrow(IllegalArgumentException::new);
-        return user;
+            .orElse(null);
     }
 
     public String addUser(@NonNull User user) {

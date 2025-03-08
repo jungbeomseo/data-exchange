@@ -3,9 +3,9 @@ echo ">> [1] REST API TEST SCENARIO\n"
 URL="localhost:8080/users"
 userId=$(curl -s -X POST -H "Content-Type: application/json"  -d '{ "name": "test 0" }' ${URL})
 echo "1. created user:\n${userId}\n"
-result=$(curl -s "${URL}?id=${userId}")
+result=$(curl -s "${URL}/${userId}")
 echo "2. query user:\n${result}\n"
-result=$(curl -s -X POST "${URL}/${userId}/roles?role=Admin")
+result=$(curl -s -X POST -H "Content-Type: application/json" -d '{"role":"Admin"}' "${URL}/${userId}/roles")
 echo "3. add role:\n${result}\n"
 
 # 2. gRPC test

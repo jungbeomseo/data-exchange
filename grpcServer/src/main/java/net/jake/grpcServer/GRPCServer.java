@@ -6,7 +6,6 @@ import common.grpc.UserMgmtGrpc.UserMgmtImplBase;
 import common.grpc.Usermgmt.RoleAddRequest;
 import common.grpc.Usermgmt.User;
 import common.grpc.Usermgmt.UserID;
-import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import net.jake.grpcServer.UserMgmt.UserService;
@@ -21,15 +20,9 @@ public class GRPCServer extends UserMgmtImplBase {
         UserID userId, 
         StreamObserver<User> responseObserver
     ) {
-        try {
-            User resp = userService.getUser(userId.getId());
-            responseObserver.onNext(resp);
-            responseObserver.onCompleted();
-        } catch (IllegalArgumentException e) {
-            responseObserver
-                .onError(Status.INVALID_ARGUMENT.withDescription("Invalid user id: " + userId)
-                .asRuntimeException());
-        }
+        User resp = userService.getUser(userId.getId());
+        responseObserver.onNext(resp);
+        responseObserver.onCompleted();
     }
 
     @Override
@@ -42,15 +35,9 @@ public class GRPCServer extends UserMgmtImplBase {
 
     @Override
     public void addRole(RoleAddRequest req, StreamObserver<User> responseObserver) {
-        try {
-            User user = userService.addRole(req.getId(), req.getRole());
-            responseObserver.onNext(user);        
-            responseObserver.onCompleted();
-        } catch (IllegalArgumentException e) {
-            responseObserver
-                .onError(Status.INVALID_ARGUMENT.withDescription("Invalid user id: " + req.getId())
-                .asRuntimeException());
-        }
+        User user = userService.addRole(req.getId(), req.getRole());
+        responseObserver.onNext(user);        
+        responseObserver.onCompleted();
     }
 
     @Override

@@ -23,5 +23,3 @@
 2. grpcServer: `./script-server grpcServer`
 3. simpleServer: `./script-server simpleServer`
 4. test scenarios: `./script-client`
-
-![](./recording.gif)

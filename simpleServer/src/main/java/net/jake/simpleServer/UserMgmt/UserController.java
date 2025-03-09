@@ -4,44 +4,38 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import lombok.NonNull;
-import net.jake.simpleServer.UserMgmt.dto.UserRoleDTO;
-import net.jake.simpleServer.UserMgmt.entity.User;
+import net.jake.openapi.api.UsersApi;
+import net.jake.openapi.model.User;
+import net.jake.openapi.model.UserRoleDTO;
 
-@RestController
-@RequestMapping("/users")
-public class UserController {
+@Controller
+public class UserController implements UsersApi {
     @Autowired 
     UserService userService;
 
-    @Operation(summary = "Get a user by its id")
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") @NotBlank String id) {
-        return Optional.ofNullable(userService.getUser(id))
+    @Override
+    public ResponseEntity<User> getUser(String id) {
+        User res = Optional.ofNullable(userService.getUser(id))
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found: %s".formatted(id)));
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @Operation(summary = "Create a user")
-    @PostMapping()
-    public String addUser(@RequestBody @Valid User user) {
-        return userService.addUser(user);
+    @Override
+    public ResponseEntity<String> addUser(@Valid User user) {
+        String res = userService.addUser(user);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @Operation(summary = "Assign a role to a user by its id")
-    @PostMapping("/{id}/roles")
-    public User addRole(@PathVariable("id") String id, @RequestBody @Valid UserRoleDTO role) {
-        return Optional.ofNullable(userService.addRole(id, role.getRole()))
+    @Override
+    public ResponseEntity<User> addRole(String id, @Valid UserRoleDTO role) {
+        User res = Optional.ofNullable(userService.addRole(id, role.getRole()))
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found: %s".formatted(id)));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+        
     }
 }

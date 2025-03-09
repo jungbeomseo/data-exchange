@@ -10,7 +10,7 @@ echo "3. add role:\n${result}\n"
 
 # 2. gRPC test
 echo "\n>> [2] GRPC TEST SCENARIO"
-java -jar simpleClient/target/simpleClient-1.0.jar
+# java -jar simpleClient/target/simpleClient-1.0.jar
 
 # 3. GraphQL test
 # echo "\n\n>> [3] GRAPHQL TEST SCENARIO"

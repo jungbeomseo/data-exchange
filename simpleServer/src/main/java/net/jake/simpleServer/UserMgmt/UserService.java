@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
-import net.jake.simpleServer.UserMgmt.entity.User;
-import net.jake.simpleServer.UserMgmt.entity.UserRole;
+import net.jake.openapi.model.User;
+import net.jake.openapi.model.UserRole;
 
 
 @Service

@@ -9,9 +9,9 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import lombok.NonNull;
+import net.jake.openapi.model.User;
+import net.jake.openapi.model.UserRole;
 import net.jake.simpleServer.UserMgmt.UserService;
-import net.jake.simpleServer.UserMgmt.entity.User;
-import net.jake.simpleServer.UserMgmt.entity.UserRole;
 
 @Controller
 public class GraphQLUserController {
@@ -38,7 +38,10 @@ public class GraphQLUserController {
 
     public record UserInput(String name, List<UserRole> roles) {
         public User toUser() {
-            return new User(null, name, roles);
+            return User.builder()
+                .name(name)
+                .roles(roles)
+                .build();
         }
     }
 }

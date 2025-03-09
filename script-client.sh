@@ -1,16 +1,15 @@
-# 1. REST API test
-echo ">> [1] REST API TEST SCENARIO\n"
-URL="localhost:8080/users"
-userId=$(curl -s -X POST -H "Content-Type: application/json"  -d '{ "name": "test 0" }' ${URL})
-echo "1. created user:\n${userId}\n"
-result=$(curl -s "${URL}/${userId}")
-echo "2. query user:\n${result}\n"
-result=$(curl -s -X POST -H "Content-Type: application/json" -d '{"role":"Admin"}' "${URL}/${userId}/roles")
-echo "3. add role:\n${result}\n"
+# 1. REST API test & gRPC test
+java -jar simpleClient/target/simpleClient-1.0.jar
 
-# 2. gRPC test
-echo "\n>> [2] GRPC TEST SCENARIO"
-# java -jar simpleClient/target/simpleClient-1.0.jar
+# echo ">> [1] REST API TEST SCENARIO\n"
+# URL="localhost:8080/users"
+# userId=$(curl -s -X POST -H "Content-Type: application/json"  -d '{ "name": "test 0" }' ${URL})
+# echo "1. created user:\n${userId}\n"
+# result=$(curl -s "${URL}/${userId}")
+# echo "2. query user:\n${result}\n"
+# result=$(curl -s -X POST -H "Content-Type: application/json" -d '{"role":"Admin"}' "${URL}/${userId}/roles")
+# echo "3. add role:\n${result}\n"
+
 
 # 3. GraphQL test
 # echo "\n\n>> [3] GRAPHQL TEST SCENARIO"

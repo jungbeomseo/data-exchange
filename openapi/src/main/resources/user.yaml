@@ -1,0 +1,96 @@
+openapi: "3.1.0"
+info:
+  title: API Customer
+  version: "1.0"
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: Users
+    description: User specific data.
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get a user by its id
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{id}/roles:
+    post:
+      tags:
+        - Users
+      summary: Assign a role to a user by its id
+      operationId: addRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: NOT FOUND
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRole'
+    UserRoleDTO:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/UserRole'
+    UserRole:
+      type: string
+      enum: [Admin, Manager, Employee]

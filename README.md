@@ -4,14 +4,14 @@
 
 ```
 .
-├── grpc                # grpc library (including spec. and stub code)
+├── grpc                # grpc library
 ├── grpcServer          # grpc server implementation
 ├── simpleServer        # rest api server implementation
 ├── simpleClient        # grpc client implementation
-├── pom.xml
-├── README.md
 ├── script-server.sh    # bash script for running servers.
-└── script-client.sh    # bash script for api call test scenarios: rest api + grpc + (graphQL later)
+├── script-client.sh    # bash script for api call test scenarios: rest api + grpc + (graphQL later)
+├── pom.xml
+└── README.md
 ```
 
 ## How to run

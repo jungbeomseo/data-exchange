@@ -35,7 +35,7 @@ public class GrpcTest {
         // 3. add role
         RoleAddRequest roleRequest = RoleAddRequest.newBuilder()
             .setId(uid.getId())
-            .setRole(UserRole.Admin)
+            .setRole(UserRole.ADMIN)
             .build();
         user = blockingStub.addRole(roleRequest);
         System.out.println("\n3. add role:\n%s".formatted(user.toString()));

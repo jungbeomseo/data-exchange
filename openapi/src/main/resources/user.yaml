@@ -93,4 +93,4 @@ components:
           $ref: '#/components/schemas/UserRole'
     UserRole:
       type: string
-      enum: [Admin, Manager, Employee]
+      enum: [ADMIN, MANAGER, EMPLOYEE]

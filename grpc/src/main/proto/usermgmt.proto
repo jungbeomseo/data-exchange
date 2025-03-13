@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "common.grpc";
+
+service UserMgmt {
+    rpc getUser(UserID) returns (User);
+    rpc addUser(User) returns (UserID);
+    rpc addUsers(stream User) returns (stream UserID);
+
+    rpc addRole(RoleAddRequest) returns (User);
+}
+
+message UserID {
+    string id = 1;
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    repeated UserRole roles = 3;
+}
+
+message RoleAddRequest {
+    string id = 1;
+    UserRole role = 2;
+}
+
+enum UserRole {
+    UNSPECIFIED = 0;
+    ADMIN = 1;
+    MANAGER = 2;
+    EMPLOYEE = 3;
+}
